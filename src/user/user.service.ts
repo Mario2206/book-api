@@ -12,15 +12,32 @@ export class UserService {
         @Inject("bcrypt") private bcrypt 
         ){}
     
+    /**
+     * Find one user
+     * 
+     * @param {string} username 
+     * 
+     * @return {Promise<UserDocument>}
+     */
     async findOne(username : string) {
         return this.userModel.findOne({username}).exec()
     }
 
-    async register(registerDto : RegisterDto) {
+    /**
+     * Save a new user
+     * 
+     * @param {RegisterDto} registerDto 
+     * @param {Role} role
+     * 
+     * @return {Promise<UserDocument>}
+     */
+    async register(registerDto : RegisterDto, role : Role = Role.User) {
         registerDto.password = await this.bcrypt.hash(registerDto.password, 10)
-        const user = new this.userModel({...registerDto, role :[Role.User]})
+        const user = new this.userModel({...registerDto, role})
         await user.validate() 
-        return user.save()
+        const newUser = await user.save()
+        newUser.password = null 
+        return newUser
     }
 
 }

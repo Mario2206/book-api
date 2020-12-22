@@ -8,6 +8,14 @@ import { Reservation, ReservationDocument } from './schema/reservation.schema';
 export class ReservationService {
     constructor(@InjectModel(Reservation.name) private readonly reservationModel : Model<ReservationDocument>) {}
 
+    /**
+     * For creating one reservation
+     * 
+     * @param createReservationDto 
+     * @param userId 
+     * 
+     * @return {Promise<ReservationDocument>}
+     */
     async createOne(createReservationDto : CreateReservationDto, userId : string) {
         const currentReservationsOfUser = await this.findCurrentReservationsFromUser(userId)
 
@@ -33,7 +41,7 @@ export class ReservationService {
      * 
      * @returns {Promise<Reservation[]>}
      */
-    async findCurrentReservationsFromUser(userId : string) : Promise<Reservation[]> {
+    async findCurrentReservationsFromUser(userId : string) : Promise<ReservationDocument[]> {
         return this.reservationModel.find()
                 .where("user", userId)
                 .where("returnAt", null)
@@ -47,7 +55,7 @@ export class ReservationService {
      * 
      * @returns {Promise<Reservation[]>} 
      */
-    async findCurrentReservationsOfBook(bookId : string) : Promise<Reservation[]> {
+    async findCurrentReservationsOfBook(bookId : string) : Promise<ReservationDocument[]> {
         return this.reservationModel.find()
                 .where("book", bookId)
                 .where("returnAt", null)
@@ -59,9 +67,11 @@ export class ReservationService {
      * 
      * @param userId 
      * @param reservationId 
+     * 
+     * @return {Promise<ReservationDocument>}
      */
-    async closeOne(userId : string, reservationId : string) {        
-        const updateData = await this.reservationModel.updateOne({ _id : reservationId}, {returnAt : new Date()})
+    async closeOne(userId : string, reservationId : string) : Promise<ReservationDocument> {        
+        const updateData = await this.reservationModel.findOneAndUpdate({ _id : reservationId}, {returnAt : new Date()}, {new: true, useFindAndModify : true})
             .where("user", userId)
             .where("returnAt", null)
             .exec()

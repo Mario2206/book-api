@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { ArrayContains } from "class-validator";
+import { ArrayContains, IsEmail } from "class-validator";
 import { Document } from "mongoose"
 import * as uniqueValidator from "mongoose-unique-validator"
 import { type } from "os";
@@ -23,4 +23,4 @@ export class User {
 
 }
 
-export const UserSchema = SchemaFactory.createForClass(User).plugin(uniqueValidator)
+export const UserSchema = SchemaFactory.createForClass(User).plugin(uniqueValidator, {message : "{PATH} is already taken"})

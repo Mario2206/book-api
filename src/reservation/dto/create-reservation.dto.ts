@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsDateString, IsNotEmpty } from "class-validator"
+import { IsDateString, IsMongoId, IsNotEmpty } from "class-validator"
 
 export default class CreateReservationDto {
     @IsDateString()
@@ -9,6 +9,7 @@ export default class CreateReservationDto {
     beginAt : Date 
 
     @IsNotEmpty()
+    @IsMongoId()
     @ApiProperty({
         description : "The book id which is reserved"
     })
