@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { ArrayContains } from "class-validator";
 import { Document } from "mongoose"
 import * as uniqueValidator from "mongoose-unique-validator"
+import { type } from "os";
 
 export type UserDocument = User & Document;
 
@@ -16,8 +18,8 @@ export class User {
     @Prop({required : true})
     password : string; 
 
-    @Prop({required : true, enum : ["Admin", "User"]})
-    role : string
+    @Prop({required : true, type : [String], enum : ["Admin", "User"]})
+    role : string[]
 
 }
 

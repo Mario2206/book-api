@@ -14,4 +14,16 @@ export class BookService {
         const book = new this.bookModel(createBookDto)
         return book.save()
     }
+
+    async deleteOne(bookId : string) {
+        return this.bookModel.findByIdAndDelete(bookId).exec()
+    }
+
+    async findAll() : Promise<BookDocument[]> {
+        return this.bookModel.find().exec()
+    }
+
+    async findOne(bookId : string) : Promise<BookDocument> {
+        return this.bookModel.findById(bookId).exec()
+    }
 }

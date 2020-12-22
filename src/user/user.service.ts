@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Role } from 'src/constant/role.enum';
 import { RegisterDto } from './dto/register.dto';
 import { User, UserDocument } from './schema/user.schema';
 
@@ -17,7 +18,7 @@ export class UserService {
 
     async register(registerDto : RegisterDto) {
         registerDto.password = await this.bcrypt.hash(registerDto.password, 10)
-        const user = new this.userModel({...registerDto, role : "User"})
+        const user = new this.userModel({...registerDto, role :[Role.User]})
         await user.validate() 
         return user.save()
     }

@@ -8,6 +8,7 @@ import { ReservationModule } from './reservation/reservation.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 
+
 @Module({
   imports: [
       ConfigModule.forRoot({
@@ -18,7 +19,7 @@ import { ConfigModule } from '@nestjs/config';
       UserModule,
       BookModule, 
       ReservationModule,
-      MongooseModule.forRoot(process.env.DB_URL)
+      MongooseModule.forRoot(process.env.DB_URL),
   ],
   controllers: [AppController],
   providers: [AppService],
