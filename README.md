@@ -34,3 +34,31 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Testing routes 
+
+Go to : http://localhost:3000/api (access to an interface for using the API)
+
+## Routes 
+
+### App 
+
+* (POST) /v1/auth/login : Login
+* (POST) /v1/auth/register : Register
+
+### Book
+
+* (POST) /v1/books : Create a book (ADMIN)
+* (GET) /v1/books : Get all books
+* (DELETE) /v1/books/{bookId} : Remove a specific book (according its id)
+* (GET) /v1/books/{bookId} : Get a specific book (according its id)
+
+### Reservation
+
+* (POST) /v1/reservation : Create a reservation (USER)
+* (GET) /v1/reservation : Get all current reservation (of the authentified user)
+* (PUT) /v1/reservation/{reservationId} : Close a specific reservation (according its id)
+
+*For more details, go to http://localhost:3000/api*
+
+
+
