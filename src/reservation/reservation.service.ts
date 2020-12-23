@@ -20,7 +20,7 @@ export class ReservationService {
         const currentReservationsOfUser = await this.findCurrentReservationsFromUser(userId)
 
         if(currentReservationsOfUser.length >= 3) {
-            throw new BadRequestException("You can't have more than 3 open reservations")
+            throw new BadRequestException("You can't have more than 3 current reservations")
         }
 
         const currentReservationOfBook = await this.findCurrentReservationsOfBook(createReservationDto.book)

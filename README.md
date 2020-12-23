@@ -20,6 +20,7 @@ $ npm install
 # User seed
 $ npx nestjs-command create:users
 ```
+*The password for all users is "password2206"*
 
 ## Running the app
 
